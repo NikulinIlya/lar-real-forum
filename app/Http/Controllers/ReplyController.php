@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ReplyResource;
 use App\Model\Question;
 use App\Model\Reply;
 use Illuminate\Http\Request;
@@ -13,21 +14,11 @@ class ReplyController extends Controller
      * Display a listing of the resource.
      *
      * @param Question $question
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index(Question $question)
     {
-        return $question->replies;
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return ReplyResource::collection($question->replies);
     }
 
     /**
@@ -39,18 +30,19 @@ class ReplyController extends Controller
     public function store(Question $question, Request $request)
     {
         $reply = $question->replies()->create($request->all());
-        return response(['reply' => $reply], Response::HTTP_CREATED);
+        return response(['reply' => new ReplyResource($reply)], Response::HTTP_CREATED);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Model\Reply  $reply
-     * @return \Illuminate\Http\Response
+     * @param Question $question
+     * @param  \App\Model\Reply $reply
+     * @return ReplyResource
      */
     public function show(Question $question, Reply $reply)
     {
-        return $reply;
+        return new ReplyResource($reply);
     }
 
     /**
@@ -69,8 +61,10 @@ class ReplyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Model\Reply  $reply
+     * @param Question $question
+     * @param  \App\Model\Reply $reply
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(Question $question, Reply $reply)
     {
