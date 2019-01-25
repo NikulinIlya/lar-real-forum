@@ -14,6 +14,9 @@ import Vuetify from 'vuetify'
 
 Vue.use(Vuetify)
 
+import User from './helpers/User'
+window.User = User
+
 Vue.component('AppHome', require('./components/AppHome.vue').default);
 
 import router from './Router/router'
