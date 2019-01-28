@@ -2,9 +2,9 @@
     <v-container>
         <v-form @submit.prevent="signup">
             <v-text-field
-                    type="Name"
+                    label="Name"
+                    type="text"
                     v-model="form.name"
-                    label="text"
                     required
             ></v-text-field>
             <span class="red--text" v-if="errors.name">{{ errors.name[0] }}</span>
@@ -59,7 +59,10 @@
         methods: {
             signup() {
                 axios.post('/api/auth/signup', this.form)
-                    .then(res => User.responseAfterLogin(res))
+                    .then(res => {
+                        User.responseAfterLogin(res);
+                        this.$router.push({name: 'forum'})
+                    })
                     .catch(error => this.errors = error.response.data.errors)
             }
         }

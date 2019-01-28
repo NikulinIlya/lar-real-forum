@@ -37,7 +37,8 @@
         },
         methods: {
             login() {
-                User.login(this.form)
+                User.login(this.form);
+                this.$router.push({name: 'forum'})
             }
         }
     }
