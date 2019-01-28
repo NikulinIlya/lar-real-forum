@@ -1943,6 +1943,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1951,15 +1954,18 @@ __webpack_require__.r(__webpack_exports__);
         email: null,
         password: null,
         password_confirmation: null
-      }
+      },
+      errors: {}
     };
   },
   methods: {
     signup: function signup() {
+      var _this = this;
+
       axios.post('/api/auth/signup', this.form).then(function (res) {
         return User.responseAfterLogin(res);
       }).catch(function (error) {
-        return console.log(error.response.data);
+        return _this.errors = error.response.data.errors;
       });
     }
   }
@@ -37039,8 +37045,14 @@ var render = function() {
             }
           }),
           _vm._v(" "),
+          _vm.errors.name
+            ? _c("span", { staticClass: "red--text" }, [
+                _vm._v(_vm._s(_vm.errors.name[0]))
+              ])
+            : _vm._e(),
+          _vm._v(" "),
           _c("v-text-field", {
-            attrs: { type: "email", label: "E-mail", required: "" },
+            attrs: { label: "E-mail", type: "email", required: "" },
             model: {
               value: _vm.form.email,
               callback: function($$v) {
@@ -37049,6 +37061,12 @@ var render = function() {
               expression: "form.email"
             }
           }),
+          _vm._v(" "),
+          _vm.errors.email
+            ? _c("span", { staticClass: "red--text" }, [
+                _vm._v(_vm._s(_vm.errors.email[0]))
+              ])
+            : _vm._e(),
           _vm._v(" "),
           _c("v-text-field", {
             attrs: { label: "Password", type: "password", required: "" },
@@ -37060,6 +37078,12 @@ var render = function() {
               expression: "form.password"
             }
           }),
+          _vm._v(" "),
+          _vm.errors.password
+            ? _c("span", { staticClass: "red--text" }, [
+                _vm._v(_vm._s(_vm.errors.password[0]))
+              ])
+            : _vm._e(),
           _vm._v(" "),
           _c("v-text-field", {
             attrs: { label: "Password", type: "password", required: "" },

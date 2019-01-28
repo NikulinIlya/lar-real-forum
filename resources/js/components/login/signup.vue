@@ -2,18 +2,20 @@
     <v-container>
         <v-form @submit.prevent="signup">
             <v-text-field
-                    v-model="form.name"
                     type="Name"
+                    v-model="form.name"
                     label="text"
                     required
             ></v-text-field>
+            <span class="red--text" v-if="errors.name">{{ errors.name[0] }}</span>
 
             <v-text-field
+                    label="E-mail"
                     v-model="form.email"
                     type="email"
-                    label="E-mail"
                     required
             ></v-text-field>
+            <span class="red--text" v-if="errors.email">{{ errors.email[0] }}</span>
 
             <v-text-field
                     label="Password"
@@ -21,6 +23,7 @@
                     type="password"
                     required
             ></v-text-field>
+            <span class="red--text" v-if="errors.password">{{ errors.password[0] }}</span>
 
             <v-text-field
                     label="Password"
@@ -49,14 +52,15 @@
                     email: null,
                     password: null,
                     password_confirmation: null
-                }
+                },
+                errors: {}
             }
         },
         methods: {
             signup() {
                 axios.post('/api/auth/signup', this.form)
                     .then(res => User.responseAfterLogin(res))
-                    .catch(error => console.log(error.response.data))
+                    .catch(error => this.errors = error.response.data.errors)
             }
         }
     }
