@@ -7,7 +7,6 @@
                     v-for="item in items"
                     :key="item.title"
                     :to="item.to"
-                    to="/login"
                     v-if="item.show">
                         <v-btn flat>{{ item.title }}</v-btn>
             </router-link>
@@ -19,6 +18,7 @@
     export default {
         data() {
             return {
+                loggedIn: User.loggedIn(),
                 items: [
                     {title : 'Forum', to: '/forum', show: true},
                     {title : 'Ask Question', to: '/ask', show: User.loggedIn()},
@@ -27,6 +27,11 @@
                     {title : 'Logout', to: '/logout', show: User.loggedIn()},
                 ]
             }
+        },
+        created() {
+            EventBus.$on('logout', () => {
+                User.logout();
+            });
         }
     }
 </script>
