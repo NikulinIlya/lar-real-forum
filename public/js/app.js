@@ -1834,7 +1834,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      items: [{
+        title: 'Forum',
+        to: '/forum',
+        show: true
+      }, {
+        title: 'Ask Question',
+        to: '/ask',
+        show: User.loggedIn()
+      }, {
+        title: 'Category',
+        to: '/category',
+        show: User.loggedIn()
+      }, {
+        title: 'Login',
+        to: '/login',
+        show: !User.loggedIn()
+      }, {
+        title: 'Logout',
+        to: '/logout',
+        show: User.loggedIn()
+      }]
+    };
+  }
+});
 
 /***/ }),
 
@@ -1899,6 +1925,13 @@ __webpack_require__.r(__webpack_exports__);
         password: null
       }
     };
+  },
+  created: function created() {
+    if (User.loggedIn()) {
+      this.$router.push({
+        name: 'forum'
+      });
+    }
   },
   methods: {
     login: function login() {
@@ -1977,6 +2010,13 @@ __webpack_require__.r(__webpack_exports__);
       },
       errors: {}
     };
+  },
+  created: function created() {
+    if (User.loggedIn()) {
+      this.$router.push({
+        name: 'forum'
+      });
+    }
   },
   methods: {
     signup: function signup() {
@@ -36922,25 +36962,20 @@ var render = function() {
       _c(
         "div",
         { staticClass: "hidden-sm-and-down" },
-        [
-          _c(
-            "router-link",
-            { attrs: { to: "/forum" } },
-            [_c("v-btn", { attrs: { flat: "" } }, [_vm._v("Forum")])],
-            1
-          ),
-          _vm._v(" "),
-          _c("v-btn", { attrs: { flat: "" } }, [_vm._v("Ask Question")]),
-          _vm._v(" "),
-          _c("v-btn", { attrs: { flat: "" } }, [_vm._v("Category")]),
-          _vm._v(" "),
-          _c(
-            "router-link",
-            { attrs: { to: "/login" } },
-            [_c("v-btn", { attrs: { flat: "" } }, [_vm._v("Login")])],
-            1
-          )
-        ],
+        _vm._l(_vm.items, function(item) {
+          return item.show
+            ? _c(
+                "router-link",
+                { key: item.title, attrs: { to: item.to, to: "/login" } },
+                [
+                  _c("v-btn", { attrs: { flat: "" } }, [
+                    _vm._v(_vm._s(item.title))
+                  ])
+                ],
+                1
+              )
+            : _vm._e()
+        }),
         1
       )
     ],
