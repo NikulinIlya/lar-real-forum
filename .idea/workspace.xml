@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e8f276a8-d08b-448e-a96c-e0e312b05ea0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/Router/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Router/router.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -52,7 +51,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/js/components/forum/create.vue">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
@@ -61,11 +60,23 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/resources/js/app.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+              <folding>
+                <element signature="e#279#300#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/js/components/login/Login.vue">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="391">
-              <caret line="23" column="17" lean-forward="true" selection-start-line="2" selection-start-column="8" selection-end-line="23" selection-end-column="17" />
+              <caret line="23" column="17" selection-start-line="2" selection-start-column="8" selection-end-line="23" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -74,7 +85,7 @@
         <entry file="file://$PROJECT_DIR$/resources/js/Router/router.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="170">
-              <caret line="10" column="47" lean-forward="true" selection-start-line="10" selection-start-column="47" selection-end-line="10" selection-end-column="47" />
+              <caret line="10" column="47" selection-start-line="10" selection-start-column="47" selection-end-line="10" selection-end-column="47" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
                 <element signature="e#78#123#0" expanded="true" />
@@ -133,7 +144,6 @@
         <option value="$PROJECT_DIR$/app/Http/Requests/SignupRequest.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/AuthController.php" />
         <option value="$PROJECT_DIR$/resources/js/helpers/Token.js" />
-        <option value="$PROJECT_DIR$/resources/js/app.js" />
         <option value="$PROJECT_DIR$/resources/js/components/login/Logout.vue" />
         <option value="$PROJECT_DIR$/resources/js/components/login/Login.vue" />
         <option value="$PROJECT_DIR$/resources/js/components/login/signup.vue" />
@@ -147,6 +157,7 @@
         <option value="$PROJECT_DIR$/resources/js/components/forum/ShowQuestion.vue" />
         <option value="$PROJECT_DIR$/resources/js/Router/router.js" />
         <option value="$PROJECT_DIR$/resources/js/components/forum/create.vue" />
+        <option value="$PROJECT_DIR$/resources/js/app.js" />
       </list>
     </option>
   </component>
@@ -424,17 +435,18 @@
       <workItem from="1548423325637" duration="18183000" />
       <workItem from="1548664523319" duration="10833000" />
       <workItem from="1548687092387" duration="7138000" />
-      <workItem from="1548767770814" duration="2157000" />
+      <workItem from="1548767770814" duration="2463000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="67315000" />
+    <option name="totallyTimeSpent" value="67621000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.27046978" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27046978" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -449,7 +461,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5013423" side_tool="true" weight="0.3286119" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.4986577" visible="true" weight="0.3243626" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.4986577" visible="true" weight="0.3243626" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -777,16 +789,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="28" selection-start-line="19" selection-start-column="28" selection-end-line="19" selection-end-column="28" />
-          <folding>
-            <element signature="e#279#300#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/web.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -838,7 +840,7 @@
     <entry file="file://$PROJECT_DIR$/resources/js/Router/router.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
-          <caret line="10" column="47" lean-forward="true" selection-start-line="10" selection-start-column="47" selection-end-line="10" selection-end-column="47" />
+          <caret line="10" column="47" selection-start-line="10" selection-start-column="47" selection-end-line="10" selection-end-column="47" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
             <element signature="e#78#123#0" expanded="true" />
@@ -849,7 +851,7 @@
     <entry file="file://$PROJECT_DIR$/resources/js/components/login/Login.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
-          <caret line="23" column="17" lean-forward="true" selection-start-line="2" selection-start-column="8" selection-end-line="23" selection-end-column="17" />
+          <caret line="23" column="17" selection-start-line="2" selection-start-column="8" selection-end-line="23" selection-end-column="17" />
         </state>
       </provider>
     </entry>
@@ -857,6 +859,16 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="15" selection-start-line="15" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+          <folding>
+            <element signature="e#279#300#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
