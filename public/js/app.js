@@ -1940,15 +1940,19 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     submit: function submit() {
-      axios.post('/api/category', this.form).then(function (res) {
-        return console.log(res.data);
-      });
-    },
-    destroy: function destroy(slug) {
       var _this2 = this;
 
-      axios.delete("/api/category/".concat(category.slug)).then(function (res) {
-        return _this2.categories.splice(index, 1);
+      axios.post('/api/category', this.form).then(function (res) {
+        _this2.categories.unshift(res.data);
+
+        _this2.form.name = null;
+      });
+    },
+    destroy: function destroy(slug, index) {
+      var _this3 = this;
+
+      axios.delete("/api/category/".concat(slug)).then(function (res) {
+        return _this3.categories.splice(index, 1);
       });
     }
   }
@@ -57691,10 +57695,10 @@ var render = function() {
           _vm._v(" "),
           _c(
             "v-list",
-            _vm._l(_vm.categories, function(category) {
+            _vm._l(_vm.categories, function(category, index) {
               return _c(
                 "div",
-                { attrs: { ley: category.id } },
+                { key: category.id },
                 [
                   _c(
                     "v-list-tile",
@@ -57739,7 +57743,7 @@ var render = function() {
                               attrs: { icon: "", small: "" },
                               on: {
                                 click: function($event) {
-                                  _vm.destroy(category.slug)
+                                  _vm.destroy(category.slug, index)
                                 }
                               }
                             },
