@@ -13,6 +13,14 @@
             </v-card-title>
 
             <v-card-text v-html="body"></v-card-text>
+            <v-card-actions v-if="own">
+                <v-btn icon small>
+                    <v-icon color="orange">edit</v-icon>
+                </v-btn>
+                <v-btn icon small>
+                    <v-icon color="red">delete</v-icon>
+                </v-btn>
+            </v-card-actions>
         </v-container>
     </v-card>
 </template>
@@ -20,6 +28,11 @@
 <script>
     export default {
         props: ['data'],
+        data() {
+            return {
+                own: User.own(this.data.user_id)
+            }
+        },
         computed: {
             body() {
                 return md.parse(this.data.body)
