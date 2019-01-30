@@ -30,7 +30,7 @@
                         </v-list-tile-content>
 
                         <v-list-tile-action>
-                            <v-btn icon small>
+                            <v-btn icon small @click="destroy(category.slug)">
                                 <v-icon color="red">delete</v-icon>
                             </v-btn>
                         </v-list-tile-action>
@@ -60,6 +60,10 @@
             submit() {
                 axios.post('/api/category', this.form)
                     .then(res => console.log(res.data))
+            },
+            destroy(slug) {
+                axios.delete(`/api/category/${category.slug}`)
+                    .then(res => this.categories.splice(index, 1))
             }
         }
     }
