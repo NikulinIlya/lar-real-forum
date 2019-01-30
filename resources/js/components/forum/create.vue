@@ -8,14 +8,15 @@
                     required
             ></v-text-field>
 
-            <v-select
+            <v-autocomplete
             :items="categories"
             item-text="name"
             item-value="id"
             v-model="form.category_id"
-            label="Category"
-            autocomplete>
-            </v-select>
+            label="Category">
+            </v-autocomplete>
+
+            <markdown-editor v-model="form.body"></markdown-editor>
 
             <v-btn color="green" type="submit">
                 Create
@@ -30,9 +31,11 @@
             return {
                 form: {
                     title: null,
-                    category_id: null
+                    category_id: null,
+                    body: null
                 },
-                categories: {}
+                categories: [],
+                errors: {}
             }
         },
         created() {
@@ -41,7 +44,9 @@
         },
         methods: {
             create() {
-
+                axios.post('/api/question', this.form)
+                    .then(res => this.$router.push(res.data.path))
+                    .catch(error => this.errors = error.response.data.error)
             }
         }
 

@@ -1944,9 +1944,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data']
+  props: ['data'],
+  computed: {
+    body: function body() {
+      return md.parse(this.data.body);
+    }
+  }
 });
 
 /***/ }),
@@ -1986,14 +1990,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       form: {
         title: null,
-        category_id: null
+        category_id: null,
+        body: null
       },
-      categories: {}
+      categories: [],
+      errors: {}
     };
   },
   created: function created() {
@@ -2004,7 +2011,15 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
-    create: function create() {}
+    create: function create() {
+      var _this2 = this;
+
+      axios.post('/api/question', this.form).then(function (res) {
+        return _this2.$router.push(res.data.path);
+      }).catch(function (error) {
+        return _this2.errors = error.response.data.error;
+      });
+    }
   }
 });
 
@@ -2062,6 +2077,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2069,7 +2085,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      question: {}
+      question: null
     };
   },
   created: function created() {
@@ -57462,7 +57478,7 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("v-card-text", { domProps: { innerHTML: _vm._s(_vm.data.body) } })
+          _c("v-card-text", { domProps: { innerHTML: _vm._s(_vm.body) } })
         ],
         1
       )
@@ -57517,13 +57533,12 @@ var render = function() {
             }
           }),
           _vm._v(" "),
-          _c("v-select", {
+          _c("v-autocomplete", {
             attrs: {
               items: _vm.categories,
               "item-text": "name",
               "item-value": "id",
-              label: "Category",
-              autocomplete: ""
+              label: "Category"
             },
             model: {
               value: _vm.form.category_id,
@@ -57531,6 +57546,16 @@ var render = function() {
                 _vm.$set(_vm.form, "category_id", $$v)
               },
               expression: "form.category_id"
+            }
+          }),
+          _vm._v(" "),
+          _c("markdown-editor", {
+            model: {
+              value: _vm.form.body,
+              callback: function($$v) {
+                _vm.$set(_vm.form, "body", $$v)
+              },
+              expression: "form.body"
             }
           }),
           _vm._v(" "),
@@ -57627,7 +57652,9 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("show-question", { attrs: { data: _vm.question } })
+  return _vm.question
+    ? _c("show-question", { attrs: { data: _vm.question } })
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -95709,8 +95736,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuetify__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var vue_simplemde__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-simplemde */ "./node_modules/vue-simplemde/dist/vue-simplemde.min.js");
 /* harmony import */ var vue_simplemde__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_simplemde__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _helpers_User__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./helpers/User */ "./resources/js/helpers/User.js");
-/* harmony import */ var _Router_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Router/router */ "./resources/js/Router/router.js");
+/* harmony import */ var marked__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! marked */ "./node_modules/marked/lib/marked.js");
+/* harmony import */ var marked__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(marked__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _helpers_User__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./helpers/User */ "./resources/js/helpers/User.js");
+/* harmony import */ var _Router_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Router/router */ "./resources/js/Router/router.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -95725,13 +95754,15 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuetify__WEBPACK_IMPORTED_MODULE_
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_simplemde__WEBPACK_IMPORTED_MODULE_2___default.a);
 
-window.User = _helpers_User__WEBPACK_IMPORTED_MODULE_3__["default"];
+window.md = marked__WEBPACK_IMPORTED_MODULE_3___default.a;
+
+window.User = _helpers_User__WEBPACK_IMPORTED_MODULE_4__["default"];
 window.EventBus = new vue__WEBPACK_IMPORTED_MODULE_0___default.a();
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('AppHome', __webpack_require__(/*! ./components/AppHome.vue */ "./resources/js/components/AppHome.vue").default);
 
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app',
-  router: _Router_router__WEBPACK_IMPORTED_MODULE_4__["default"]
+  router: _Router_router__WEBPACK_IMPORTED_MODULE_5__["default"]
 });
 
 /***/ }),
@@ -95765,6 +95796,8 @@ try {
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+var JWTToken = "Bearer ".concat(localStorage.getItem('token'));
+window.axios.defaults.headers.common['Authorization'] = JWTToken;
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
  * all outgoing HTTP requests automatically have it attached. This is just
