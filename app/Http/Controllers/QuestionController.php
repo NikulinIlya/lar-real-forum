@@ -62,6 +62,8 @@ class QuestionController extends Controller
     public function update(Request $request, Question $question)
     {
         $question->update($request->all());
+        $question->update(['slug' => str_slug($request->title)]);
+
         return response('Update', Response::HTTP_ACCEPTED);
     }
 
