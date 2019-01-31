@@ -26,7 +26,7 @@
         props: ['data'],
         computed: {
             own() {
-                User.own(this.data.user_id)
+                return User.own(this.data.user_id)
             }
         }
     }
