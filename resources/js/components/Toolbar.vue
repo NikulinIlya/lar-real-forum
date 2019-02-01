@@ -2,6 +2,7 @@
     <v-toolbar>
         <v-toolbar-title>Realtime Forum</v-toolbar-title>
         <v-spacer></v-spacer>
+        <app-notification></app-notification>
         <div class="hidden-sm-and-down">
             <router-link
                     v-for="item in items"
@@ -15,7 +16,9 @@
 </template>
 
 <script>
+    import AppNotification from './AppNotification'
     export default {
+        components: {AppNotification},
         data() {
             return {
                 loggedIn: User.loggedIn(),
