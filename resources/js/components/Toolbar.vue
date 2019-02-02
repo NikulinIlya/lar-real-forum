@@ -2,7 +2,7 @@
     <v-toolbar>
         <v-toolbar-title>Realtime Forum</v-toolbar-title>
         <v-spacer></v-spacer>
-        <app-notification></app-notification>
+        <app-notification v-if="loggedIn"></app-notification>
         <div class="hidden-sm-and-down">
             <router-link
                     v-for="item in items"

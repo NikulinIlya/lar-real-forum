@@ -1833,6 +1833,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1855,6 +1862,24 @@ __webpack_require__.r(__webpack_exports__);
         _this.unread = res.data.unread;
         _this.unreadCount = res.data.unread.length;
       });
+    },
+    readIt: function readIt(notification) {
+      var _this2 = this;
+
+      axios.post('/api/markAsRead', {
+        id: notification.id
+      }).then(function (res) {
+        _this2.unread.splice(notification, 1);
+
+        _this2.read.push(notification);
+
+        _this2.unreadCount--;
+      });
+    }
+  },
+  computed: {
+    color: function color() {
+      return this.unreadCount > 0 ? 'red' : 'red lighten-4';
     }
   }
 });
@@ -57985,20 +58010,58 @@ var render = function() {
           _c(
             "v-btn",
             { attrs: { slot: "activator", icon: "" }, slot: "activator" },
-            [_c("v-icon", { attrs: { color: "red" } }, [_vm._v("add_alert")])],
+            [
+              _c("v-icon", { attrs: { color: _vm.color } }, [
+                _vm._v("add_alert")
+              ]),
+              _vm._v(_vm._s(_vm.unreadCount) + "\n        ")
+            ],
             1
           ),
           _vm._v(" "),
           _c(
             "v-list",
             [
-              _c(
-                "v-list-tile",
-                [_c("v-list-tile-title", [_vm._v("Notification")])],
-                1
-              )
+              _vm._l(_vm.unread, function(item) {
+                return _c(
+                  "v-list-tile",
+                  { key: item.id },
+                  [
+                    _c(
+                      "router-link",
+                      { attrs: { to: item.path } },
+                      [
+                        _c(
+                          "v-list-tile-title",
+                          {
+                            on: {
+                              click: function($event) {
+                                _vm.readIt(item)
+                              }
+                            }
+                          },
+                          [_vm._v(_vm._s(item.question))]
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              }),
+              _vm._v(" "),
+              _c("v-divider"),
+              _vm._v(" "),
+              _vm._l(_vm.read, function(item) {
+                return _c(
+                  "v-list-tile",
+                  { key: item.id },
+                  [_c("v-list-tile-title", [_vm._v(_vm._s(item.question))])],
+                  1
+                )
+              })
             ],
-            1
+            2
           )
         ],
         1
@@ -58036,7 +58099,7 @@ var render = function() {
       _vm._v(" "),
       _c("v-spacer"),
       _vm._v(" "),
-      _c("app-notification"),
+      _vm.loggedIn ? _c("app-notification") : _vm._e(),
       _vm._v(" "),
       _c(
         "div",
