@@ -1,6 +1,8 @@
 <template>
-    <v-toolbar>
-        <v-toolbar-title>Realtime Forum</v-toolbar-title>
+    <v-toolbar color="indigo" dark>
+        <v-toolbar-title>
+            <router-link class="white--text" to="/">Realtime Forum</router-link>
+        </v-toolbar-title>
         <v-spacer></v-spacer>
         <app-notification v-if="loggedIn"></app-notification>
         <div class="hidden-sm-and-down">
