@@ -1845,7 +1845,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       read: {},
       unread: {},
-      unreadCount: 0
+      unreadCount: 0,
+      sound: "http://soundbible.com/mp3/glass_ping-Go445-1207030150.mp3"
     };
   },
   created: function created() {
@@ -1856,12 +1857,18 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     Echo.private('App.User.' + User.id()).notification(function (notification) {
+      _this.playSound();
+
       _this.unread.unshift(notification);
 
       _this.unreadCount++;
     });
   },
   methods: {
+    playSound: function playSound() {
+      var alert = new Audio(this.sound);
+      alert.play();
+    },
     getNotifications: function getNotifications() {
       var _this2 = this;
 
