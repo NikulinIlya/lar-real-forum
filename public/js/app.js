@@ -1849,31 +1849,39 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
+    var _this = this;
+
     if (User.loggedIn()) {
       this.getNotifications();
     }
+
+    Echo.private('App.User.' + User.id()).notification(function (notification) {
+      _this.unread.unshift(notification);
+
+      _this.unreadCount++;
+    });
   },
   methods: {
     getNotifications: function getNotifications() {
-      var _this = this;
+      var _this2 = this;
 
       axios.post('/api/notifications').then(function (res) {
-        _this.read = res.data.read;
-        _this.unread = res.data.unread;
-        _this.unreadCount = res.data.unread.length;
+        _this2.read = res.data.read;
+        _this2.unread = res.data.unread;
+        _this2.unreadCount = res.data.unread.length;
       });
     },
     readIt: function readIt(notification) {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.post('/api/markAsRead', {
         id: notification.id
       }).then(function (res) {
-        _this2.unread.splice(notification, 1);
+        _this3.unread.splice(notification, 1);
 
-        _this2.read.push(notification);
+        _this3.read.push(notification);
 
-        _this2.unreadCount--;
+        _this3.unreadCount--;
       });
     }
   },
@@ -2844,6 +2852,16 @@ __webpack_require__.r(__webpack_exports__);
         axios.delete("/api/question/".concat(_this.question.slug, "/reply/").concat(_this.content[index].id)).then(function (res) {
           _this.content.splice(index, 1);
         });
+      });
+      Echo.private('App.User.' + User.id()).notification(function (notification) {
+        _this.content.unshift(notification.reply);
+      });
+      Echo.channel('deleteReplyChannel').listen('DeleteReplyEvent', function (e) {
+        for (var index = 0; index < _this.content.length; index++) {
+          if (_this.content[index].id === e.id) {
+            _this.content.splice(index, 1);
+          }
+        }
       });
     }
   }
@@ -107332,7 +107350,12 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
   key: "73f2757819607f2c3065",
   cluster: "eu",
-  encrypted: true
+  encrypted: true,
+  auth: {
+    headers: {
+      Authorization: JWTToken
+    }
+  }
 });
 
 /***/ }),
