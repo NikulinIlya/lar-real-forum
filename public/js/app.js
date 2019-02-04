@@ -2020,6 +2020,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2027,7 +2035,8 @@ __webpack_require__.r(__webpack_exports__);
         name: null
       },
       categories: {},
-      editSlug: null
+      editSlug: null,
+      errors: null
     };
   },
   created: function created() {
@@ -2061,6 +2070,8 @@ __webpack_require__.r(__webpack_exports__);
         _this3.categories.unshift(res.data);
 
         _this3.form.name = null;
+      }).catch(function (error) {
+        return _this3.errors = error.response.data.errors;
       });
     },
     destroy: function destroy(slug, index) {
@@ -2074,6 +2085,11 @@ __webpack_require__.r(__webpack_exports__);
       this.form.name = this.categories[index].name;
       this.editSlug = this.categories[index].slug;
       this.categories.splice(index, 1);
+    }
+  },
+  computed: {
+    disabled: function disabled() {
+      return !this.form.name;
     }
   }
 });
@@ -2293,6 +2309,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2319,8 +2342,13 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('/api/question', this.form).then(function (res) {
         return _this2.$router.push(res.data.path);
       }).catch(function (error) {
-        return _this2.errors = error.response.data.error;
+        return _this2.errors = error.response.data.errors;
       });
+    }
+  },
+  computed: {
+    disabled: function disabled() {
+      return !(this.form.title && this.form.category_id && this.form.body);
     }
   }
 });
@@ -68343,6 +68371,12 @@ var render = function() {
   return _c(
     "v-container",
     [
+      _vm.errors
+        ? _c("v-alert", { attrs: { value: true, type: "error" } }, [
+            _vm._v("\n        Add a category name, please!\n    ")
+          ])
+        : _vm._e(),
+      _vm._v(" "),
       _c(
         "v-form",
         {
@@ -68366,12 +68400,28 @@ var render = function() {
           }),
           _vm._v(" "),
           _vm.editSlug
-            ? _c("v-btn", { attrs: { type: "submit", color: "pink" } }, [
-                _vm._v("Update")
-              ])
-            : _c("v-btn", { attrs: { type: "submit", color: "teal" } }, [
-                _vm._v("Create")
-              ])
+            ? _c(
+                "v-btn",
+                {
+                  attrs: {
+                    type: "submit",
+                    disabled: _vm.disabled,
+                    color: "pink"
+                  }
+                },
+                [_vm._v("Update")]
+              )
+            : _c(
+                "v-btn",
+                {
+                  attrs: {
+                    type: "submit",
+                    disabled: _vm.disabled,
+                    color: "teal"
+                  }
+                },
+                [_vm._v("Create")]
+              )
         ],
         1
       ),
@@ -68715,6 +68765,12 @@ var render = function() {
           }
         },
         [
+          _vm.errors.title
+            ? _c("span", { staticClass: "red--text" }, [
+                _vm._v(_vm._s(_vm.errors.title[0]))
+              ])
+            : _vm._e(),
+          _vm._v(" "),
           _c("v-text-field", {
             attrs: { label: "Title", type: "text", required: "" },
             model: {
@@ -68725,6 +68781,12 @@ var render = function() {
               expression: "form.title"
             }
           }),
+          _vm._v(" "),
+          _vm.errors.category_id
+            ? _c("span", { staticClass: "red--text" }, [
+                _vm._v(_vm._s(_vm.errors.category_id[0]))
+              ])
+            : _vm._e(),
           _vm._v(" "),
           _c("v-autocomplete", {
             attrs: {
@@ -68742,6 +68804,12 @@ var render = function() {
             }
           }),
           _vm._v(" "),
+          _vm.errors.body
+            ? _c("span", { staticClass: "red--text" }, [
+                _vm._v(_vm._s(_vm.errors.body[0]))
+              ])
+            : _vm._e(),
+          _vm._v(" "),
           _c("markdown-editor", {
             model: {
               value: _vm.form.body,
@@ -68752,9 +68820,13 @@ var render = function() {
             }
           }),
           _vm._v(" "),
-          _c("v-btn", { attrs: { color: "green", type: "submit" } }, [
-            _vm._v("\n            Create\n        ")
-          ])
+          _c(
+            "v-btn",
+            {
+              attrs: { color: "green", type: "submit", disabled: _vm.disabled }
+            },
+            [_vm._v("\n            Create\n        ")]
+          )
         ],
         1
       )
@@ -107322,7 +107394,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
-/* harmony import */ var _components_parallax__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components/parallax */ "./resources/js/components/parallax.vue");
+/* harmony import */ var _components_parallax__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/parallax */ "./resources/js/components/parallax.vue");
 /* harmony import */ var _components_login_Login__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/login/Login */ "./resources/js/components/login/Login.vue");
 /* harmony import */ var _components_login_signup__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/login/signup */ "./resources/js/components/login/signup.vue");
 /* harmony import */ var _components_login_Logout__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/login/Logout */ "./resources/js/components/login/Logout.vue");
@@ -107343,7 +107415,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 
 var routes = [{
   path: '/',
-  component: _components_parallax__WEBPACK_IMPORTED_MODULE_10__["default"]
+  component: _components_parallax__WEBPACK_IMPORTED_MODULE_2__["default"]
 }, {
   path: '/login',
   component: _components_login_Login__WEBPACK_IMPORTED_MODULE_3__["default"]

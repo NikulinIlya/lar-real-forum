@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Model\Category;
 use Illuminate\Http\Request;
@@ -59,11 +60,11 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Model\Category  $category
+     * @param CategoryRequest $request
+     * @param  \App\Model\Category $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, Category $category)
     {
         $category->update(['name' => $request->name, 'slug' => str_slug($request->name)]);
         return response(new CategoryResource($category), Response::HTTP_ACCEPTED);
