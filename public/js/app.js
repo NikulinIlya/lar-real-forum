@@ -1869,6 +1869,8 @@ __webpack_require__.r(__webpack_exports__);
         _this2.read = res.data.read;
         _this2.unread = res.data.unread;
         _this2.unreadCount = res.data.unread.length;
+      }).catch(function (error) {
+        return Exception.handle(error);
       });
     },
     readIt: function readIt(notification) {
@@ -107262,7 +107264,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var marked__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! marked */ "./node_modules/marked/lib/marked.js");
 /* harmony import */ var marked__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(marked__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _helpers_User__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./helpers/User */ "./resources/js/helpers/User.js");
-/* harmony import */ var _Router_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Router/router */ "./resources/js/Router/router.js");
+/* harmony import */ var _helpers_Exception__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./helpers/Exception */ "./resources/js/helpers/Exception.js");
+/* harmony import */ var _Router_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Router/router */ "./resources/js/Router/router.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -107280,12 +107283,14 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_simplemde__WEBPACK_IMPORTED_M
 window.md = marked__WEBPACK_IMPORTED_MODULE_3___default.a;
 
 window.User = _helpers_User__WEBPACK_IMPORTED_MODULE_4__["default"];
+
+window.Exception = _helpers_Exception__WEBPACK_IMPORTED_MODULE_5__["default"];
 window.EventBus = new vue__WEBPACK_IMPORTED_MODULE_0___default.a();
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('AppHome', __webpack_require__(/*! ./components/AppHome.vue */ "./resources/js/components/AppHome.vue").default);
 
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app',
-  router: _Router_router__WEBPACK_IMPORTED_MODULE_5__["default"]
+  router: _Router_router__WEBPACK_IMPORTED_MODULE_6__["default"]
 });
 
 /***/ }),
@@ -108800,6 +108805,52 @@ function () {
 }();
 
 /* harmony default export */ __webpack_exports__["default"] = (AppStorage = new AppStorage());
+
+/***/ }),
+
+/***/ "./resources/js/helpers/Exception.js":
+/*!*******************************************!*\
+  !*** ./resources/js/helpers/Exception.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _User__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./User */ "./resources/js/helpers/User.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+
+var Exception =
+/*#__PURE__*/
+function () {
+  function Exception() {
+    _classCallCheck(this, Exception);
+  }
+
+  _createClass(Exception, [{
+    key: "handle",
+    value: function handle(error) {
+      this.isExpired(error.response.data.error);
+    }
+  }, {
+    key: "isExpired",
+    value: function isExpired(error) {
+      if (error === 'Token is invalid') {
+        _User__WEBPACK_IMPORTED_MODULE_0__["default"].logout();
+      }
+    }
+  }]);
+
+  return Exception;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (Exception = new Exception());
 
 /***/ }),
 
